@@ -16,8 +16,7 @@ JWTManager(app)
 # เชื่อมต่อ MongoDB ด้วย mongoengine โดยตรง
 connect(
     db=app.config["MONGODB_SETTINGS"]["db"],
-    host=app.config["MONGODB_SETTINGS"]["host"],
-    port=app.config["MONGODB_SETTINGS"]["port"]
+    host=app.config["MONGODB_SETTINGS"]["host"]
 )
 
 # Register Blueprints
@@ -26,3 +25,5 @@ app.register_blueprint(notes, url_prefix="/api")
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
