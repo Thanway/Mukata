@@ -3,6 +3,7 @@
     <NuxtLink to="/" class="font-bold text-xl">DailyNotes</NuxtLink>
     <div class="space-x-4">
       <NuxtLink to="/login">Login</NuxtLink>
+      <NuxtLink to="/register">Register</NuxtLink>
       <NuxtLink to="/dashboard">Dashboard</NuxtLink>
       <NuxtLink to="/logout">logout</NuxtLink>
     </div>
