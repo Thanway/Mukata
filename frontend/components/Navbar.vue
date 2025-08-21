@@ -5,6 +5,8 @@
       <NuxtLink to="/login">Login</NuxtLink>
       <NuxtLink to="/register">Register</NuxtLink>
       <NuxtLink to="/dashboard">Dashboard</NuxtLink>
+      <NuxtLink to="/table">Table</NuxtLink>
+      <NuxtLink to="/reservations">reservations</NuxtLink>
       <NuxtLink to="/logout">logout</NuxtLink>
     </div>
   </nav>
