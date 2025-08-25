@@ -1,44 +1,38 @@
 <template>
-  <div class="min-h-screen bg-ocean text-black font-ocean">
-    <!-- Hero -->
-    <div class="w-screen max-h-[320px] overflow-hidden border-b border-cyan-500">
-      <img
-        src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80"
-        alt="Underwater"
-        class="w-full h-full object-cover"
-        style="height: 320px;"
-      />
+  <div class="min-h-screen bg-mookata text-stone-900">
+    <!-- Hero (แถบหัวอุ่นๆ) -->
+    <div class="w-screen max-h-[320px] overflow-hidden border-b border-amber-300">
+      <div class="h-[320px] bg-gradient-to-r from-amber-100 via-orange-100 to-rose-100 flex items-center justify-center">
+        <h1 class="text-4xl font-extrabold tracking-wide drop-shadow-sm text-red-800">จัดการโต๊ะ</h1>
+      </div>
     </div>
 
     <!-- Container -->
     <div class="p-6 max-w-5xl mx-auto">
-      <h1 class="text-4xl font-extrabold mb-8 text-center tracking-wide drop-shadow-lg">
-        จัดการโต๊ะ
-      </h1>
 
       <!-- ฟอร์มเพิ่มโต๊ะ -->
-      <div class="bg-white/80 rounded-lg p-5 border border-cyan-600 shadow mb-8">
-        <h2 class="text-xl font-bold mb-4">เพิ่มโต๊ะ</h2>
+      <div class="bg-white/90 rounded-xl p-5 border border-amber-300 shadow mb-8">
+        <h2 class="text-xl font-bold mb-4 text-stone-800">เพิ่มโต๊ะ</h2>
         <div class="grid grid-cols-1 md:grid-cols-5 gap-3">
           <input
             v-model.trim="form.number"
             placeholder="เลขโต๊ะ (เช่น A1, 12, VIP-3)"
-            class="bg-transparent border border-cyan-400 p-3 rounded-md md:col-span-3 placeholder-cyan-800 focus:outline-cyan-300 focus:ring-2 focus:ring-cyan-500 shadow-sm text-black"
+            class="bg-white/80 border border-amber-300 p-3 rounded-lg md:col-span-3 placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-amber-500 shadow-sm"
           />
           <input
             v-model.number="form.seats"
             type="number" min="1"
             placeholder="จำนวนที่นั่ง"
-            class="bg-transparent border border-cyan-400 p-3 rounded-md placeholder-cyan-800 focus:outline-cyan-300 focus:ring-2 focus:ring-cyan-500 shadow-sm text-black"
+            class="bg-white/80 border border-amber-300 p-3 rounded-lg placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-amber-500 shadow-sm"
           />
           <button
             @click="createTable"
-            class="bg-cyan-600 hover:bg-cyan-700 text-black font-semibold px-5 rounded-md shadow-md transition duration-300"
+            class="bg-amber-600 hover:bg-amber-700 text-white font-semibold px-5 rounded-lg shadow-sm transition"
           >
             เพิ่มโต๊ะ
           </button>
         </div>
-        <p class="text-sm mt-2 opacity-70">* ต้องกรอกเลขโต๊ะอย่างน้อย 1 ค่า</p>
+        <p class="text-sm mt-2 text-stone-500">* ต้องกรอกเลขโต๊ะอย่างน้อย 1 ค่า</p>
       </div>
 
       <!-- แถบค้นหา + สรุป -->
@@ -46,21 +40,21 @@
         <input
           v-model="q"
           placeholder="ค้นหาเลขโต๊ะ..."
-          class="bg-transparent border border-cyan-300 p-3 rounded-md flex-1 placeholder-cyan-800 focus:outline-cyan-400 focus:ring-2 focus:ring-cyan-600 shadow-inner text-black"
+          class="bg-white/80 border border-amber-300 p-3 rounded-lg flex-1 placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-amber-500 shadow-sm"
         />
-        <div class="text-sm opacity-80">
+        <div class="text-sm text-stone-600">
           โต๊ะทั้งหมด: <b>{{ tables.length }}</b> |
           ใช้งานได้: <b>{{ tables.filter(t => t.isActive).length }}</b>
         </div>
       </div>
 
       <!-- รายการโต๊ะ -->
-      <div v-if="loading" class="text-center py-10 opacity-70">กำลังโหลด...</div>
+      <div v-if="loading" class="text-center py-10 text-stone-500">กำลังโหลด...</div>
 
-      <div v-else class="rounded-lg overflow-hidden border border-cyan-600 bg-white/80 shadow">
+      <div v-else class="rounded-xl overflow-hidden border border-amber-300 bg-white/90 shadow-sm">
         <table class="w-full text-left">
-          <thead class="bg-cyan-50">
-            <tr>
+          <thead class="bg-amber-50">
+            <tr class="text-stone-700">
               <th class="p-3">เลขโต๊ะ</th>
               <th class="p-3">ที่นั่ง</th>
               <th class="p-3">สถานะ</th>
@@ -71,11 +65,11 @@
             <tr
               v-for="t in filtered"
               :key="t.id"
-              class="border-t border-cyan-100 hover:bg-cyan-50/50 transition"
+              class="border-t border-amber-100 hover:bg-amber-50/60 transition"
             >
               <td class="p-3">
                 <template v-if="editId === t.id">
-                  <input v-model.trim="edit.number" class="border p-1 rounded w-32" />
+                  <input v-model.trim="edit.number" class="border border-amber-300 p-1 rounded w-32 focus:outline-none focus:ring-2 focus:ring-amber-400" />
                 </template>
                 <template v-else>
                   <span class="font-semibold">{{ t.number }}</span>
@@ -83,7 +77,7 @@
               </td>
               <td class="p-3">
                 <template v-if="editId === t.id">
-                  <input v-model.number="edit.seats" type="number" min="1" class="border p-1 rounded w-24" />
+                  <input v-model.number="edit.seats" type="number" min="1" class="border border-amber-300 p-1 rounded w-24 focus:outline-none focus:ring-2 focus:ring-amber-400" />
                 </template>
                 <template v-else>
                   {{ t.seats }}
@@ -91,8 +85,8 @@
               </td>
               <td class="p-3">
                 <span
-                  class="px-2 py-1 text-xs rounded border"
-                  :class="t.isActive ? 'bg-green-100 border-green-400' : 'bg-gray-100 border-gray-400'"
+                  class="px-2 py-1 text-xs rounded-full border font-medium"
+                  :class="t.isActive ? 'bg-green-100 text-green-700 border-green-300' : 'bg-stone-100 text-stone-700 border-stone-300'"
                 >
                   {{ t.isActive ? 'ใช้งานได้' : 'ปิดใช้งาน' }}
                 </span>
@@ -101,34 +95,34 @@
                 <div class="flex justify-end gap-2">
                   <button
                     v-if="editId !== t.id"
-                    class="px-3 py-1 rounded bg-amber-500 hover:bg-amber-600 text-white"
+                    class="px-3 py-1 rounded-lg bg-amber-500 hover:bg-amber-600 text-white"
                     @click="startEdit(t)"
                   >
                     แก้ไข
                   </button>
                   <button
                     v-else
-                    class="px-3 py-1 rounded bg-blue-600 hover:bg-blue-700 text-white"
+                    class="px-3 py-1 rounded-lg bg-orange-600 hover:bg-orange-700 text-white"
                     @click="saveEdit(t.id)"
                   >
                     บันทึก
                   </button>
                   <button
                     v-if="editId === t.id"
-                    class="px-3 py-1 rounded bg-gray-500 hover:bg-gray-600 text-white"
+                    class="px-3 py-1 rounded-lg bg-stone-500 hover:bg-stone-600 text-white"
                     @click="cancelEdit"
                   >
                     ยกเลิก
                   </button>
                   <button
-                    class="px-3 py-1 rounded"
-                    :class="t.isActive ? 'bg-yellow-500 hover:bg-yellow-600 text-white' : 'bg-green-600 hover:bg-green-700 text-white'"
+                    class="px-3 py-1 rounded-lg text-white"
+                    :class="t.isActive ? 'bg-yellow-600 hover:bg-yellow-700' : 'bg-green-600 hover:bg-green-700'"
                     @click="toggleActive(t)"
                   >
                     {{ t.isActive ? 'ปิดใช้งาน' : 'เปิดใช้งาน' }}
                   </button>
                   <button
-                    class="px-3 py-1 rounded bg-red-600 hover:bg-red-700 text-white"
+                    class="px-3 py-1 rounded-lg bg-red-700 hover:bg-red-800 text-white"
                     @click="removeTable(t.id)"
                   >
                     ลบ
@@ -137,7 +131,7 @@
               </td>
             </tr>
             <tr v-if="!filtered.length">
-              <td colspan="4" class="p-5 text-center opacity-60">ไม่พบโต๊ะ</td>
+              <td colspan="4" class="p-5 text-center text-stone-500">ไม่พบโต๊ะ</td>
             </tr>
           </tbody>
         </table>
@@ -205,9 +199,7 @@ const saveEdit = async (id) => {
   try {
     await axios.patch(`${API}/tables/${id}`, edit.value, { headers: authHeaders() })
     const idx = tables.value.findIndex(x => x.id === id)
-    if (idx !== -1) {
-      tables.value[idx] = { ...tables.value[idx], ...edit.value }
-    }
+    if (idx !== -1) tables.value[idx] = { ...tables.value[idx], ...edit.value }
     cancelEdit()
   } catch (e) {
     alert(e?.response?.data?.msg || 'บันทึกไม่สำเร็จ')
@@ -246,13 +238,13 @@ onMounted(fetchTables)
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
-
-.font-ocean { font-family: 'Pacifico', cursive; }
-.bg-ocean {
-  background-image: url('https://images.unsplash.com/photo-1581322336686-c5a8f1b1d4be?auto=format&fit=crop&w=1500&q=80');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+/* พื้นหลังครีม/เบจโทนร้านหมูกระทะ */
+.bg-mookata {
+  background-color: #fdf3e7; /* ลอง #fff7ec หรือ #fff4e6 ถ้าอยากสว่าง/นวลขึ้น */
 }
+
+/* (ตัวเลือก) ฟอนต์ไทยอ่านง่าย
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;600;800&display=swap');
+:root { --thai: 'Noto Sans Thai', ui-sans-serif, system-ui; }
+* { font-family: var(--thai); } */
 </style>

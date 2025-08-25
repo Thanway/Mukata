@@ -1,63 +1,57 @@
 <template>
-  <div class="min-h-screen bg-ocean text-black font-ocean">
-    <!-- Hero -->
-    <div class="w-screen max-h-[320px] overflow-hidden border-b border-cyan-500">
-      <img
-        src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80"
-        alt="Underwater"
-        class="w-full h-full object-cover"
-        style="height: 320px;"
-      />
-    </div>
-
+  <div class="min-h-screen bg-mookata text-stone-900">
     <!-- Container -->
     <div class="p-6 max-w-3xl mx-auto">
-      <h1 class="text-4xl font-extrabold mb-8 text-center tracking-wide drop-shadow-lg">
+      <h1 class="text-4xl font-extrabold mb-8 text-center tracking-wide drop-shadow-sm text-red-800">
         ฟอร์มจองโต๊ะ
       </h1>
 
       <!-- Error banner -->
-      <div v-if="error" class="mb-6 bg-red-50 border border-red-300 text-red-800 rounded p-4">
+      <div v-if="error" class="mb-6 bg-rose-50 border border-rose-300 text-rose-800 rounded-lg p-4">
         <p class="font-bold">เกิดข้อผิดพลาด</p>
         <p class="text-sm whitespace-pre-wrap">{{ error }}</p>
       </div>
 
       <!-- Form -->
-      <div class="bg-white/85 rounded-lg p-6 shadow border border-cyan-600">
+      <div class="bg-white/95 rounded-xl p-6 shadow border border-amber-300">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Name -->
           <div>
             <label class="block text-sm mb-1">ชื่อลูกค้า *</label>
             <input
               v-model.trim="form.customerName"
-              class="w-full bg-transparent border border-cyan-400 p-3 rounded-md placeholder-cyan-800 focus:outline-cyan-300 focus:ring-2 focus:ring-cyan-500"
+              class="w-full bg-transparent border border-amber-300 p-3 rounded-lg placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-amber-500"
               placeholder="เช่น สมชาย ใจดี"
             />
           </div>
 
+          <!-- Phone -->
           <div>
             <label class="block text-sm mb-1">เบอร์โทร</label>
             <input
               v-model.trim="form.phone"
-              class="w-full bg-transparent border border-cyan-400 p-3 rounded-md placeholder-cyan-800 focus:outline-cyan-300 focus:ring-2 focus:ring-cyan-500"
+              class="w-full bg-transparent border border-amber-300 p-3 rounded-lg placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-amber-500"
               placeholder="เช่น 0812345678"
             />
           </div>
 
+          <!-- Party size -->
           <div>
             <label class="block text-sm mb-1">จำนวนคน *</label>
             <input
               v-model.number="form.partySize"
               type="number" min="1"
-              class="w-full bg-transparent border border-cyan-400 p-3 rounded-md placeholder-cyan-800 focus:outline-cyan-300 focus:ring-2 focus:ring-cyan-500"
+              class="w-full bg-transparent border border-amber-300 p-3 rounded-lg placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-amber-500"
               placeholder="เช่น 4"
             />
           </div>
 
+          <!-- Table -->
           <div>
             <label class="block text-sm mb-1">โต๊ะ *</label>
             <select
               v-model="form.tableId"
-              class="w-full bg-transparent border border-cyan-400 p-3 rounded-md focus:outline-cyan-300 focus:ring-2 focus:ring-cyan-500"
+              class="w-full bg-transparent border border-amber-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
             >
               <option value="" disabled>-- เลือกโต๊ะ --</option>
               <option
@@ -71,30 +65,35 @@
             </select>
           </div>
 
+          <!-- Reserve start -->
           <div>
             <label class="block text-sm mb-1">เวลาเริ่ม *</label>
             <input
               v-model="form.reserveStart"
               type="datetime-local"
-              class="w-full bg-transparent border border-cyan-400 p-3 rounded-md placeholder-cyan-800 focus:outline-cyan-300 focus:ring-2 focus:ring-cyan-500"
+              class="w-full bg-transparent border border-amber-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
             />
           </div>
 
+          <!-- Reserve end -->
           <div>
             <label class="block text-sm mb-1">เวลาสิ้นสุด *</label>
             <input
               v-model="form.reserveEnd"
               type="datetime-local"
-              class="w-full bg-transparent border border-cyan-400 p-3 rounded-md placeholder-cyan-800 focus:outline-cyan-300 focus:ring-2 focus:ring-cyan-500"
+              class="w-full bg-transparent border border-amber-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
             />
-            <p class="text-xs mt-1 opacity-70">* ไม่กรอกได้ ถ้าจะให้ระบบกำหนดอัตโนมัติ +120 นาที (ตั้งไว้ใน backend แล้ว)</p>
+            <p class="text-xs mt-1 text-stone-500">
+              * ไม่กรอกได้ ถ้าจะให้ระบบกำหนดอัตโนมัติ +120 นาที
+            </p>
           </div>
 
+          <!-- Status -->
           <div class="md:col-span-2">
             <label class="block text-sm mb-1">สถานะ</label>
             <select
               v-model="form.status"
-              class="w-full bg-transparent border border-cyan-400 p-3 rounded-md focus:outline-cyan-300 focus:ring-2 focus:ring-cyan-500"
+              class="w-full bg-transparent border border-amber-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
             >
               <option value="reserved">reserved</option>
               <option value="seated">seated</option>
@@ -104,17 +103,18 @@
           </div>
         </div>
 
+        <!-- Buttons -->
         <div class="mt-6 flex gap-3">
           <button
             @click="submit"
-            class="bg-cyan-600 hover:bg-cyan-700 text-black font-semibold px-6 py-3 rounded-md shadow-md transition"
+            class="bg-amber-600 hover:bg-amber-700 text-white font-semibold px-6 py-3 rounded-lg shadow-sm transition"
             :disabled="submitting"
           >
             {{ submitting ? 'กำลังบันทึก...' : 'บันทึกการจอง' }}
           </button>
           <button
             @click="resetForm"
-            class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-6 py-3 rounded-md shadow-md transition"
+            class="bg-stone-200 hover:bg-stone-300 text-stone-800 font-semibold px-6 py-3 rounded-lg shadow-sm transition"
             :disabled="submitting"
           >
             ล้างฟอร์ม
@@ -123,12 +123,13 @@
       </div>
 
       <!-- Success mini banner -->
-      <div v-if="successMsg" class="mt-6 bg-green-50 border border-green-300 text-green-800 rounded p-4">
+      <div v-if="successMsg" class="mt-6 bg-green-50 border border-green-300 text-green-800 rounded-lg p-4">
         {{ successMsg }}
       </div>
     </div>
   </div>
 </template>
+
 
 <script setup>
 import axios from 'axios'
@@ -227,13 +228,8 @@ onMounted(fetchTables)
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
-
-.font-ocean { font-family: 'Pacifico', cursive; }
-.bg-ocean {
-  background-image: url('https://images.unsplash.com/photo-1581322336686-c5a8f1b1d4be?auto=format&fit=crop&w=1500&q=80');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+/* พื้นหลังครีมโทนร้านหมูกระทะ */
+.bg-mookata {
+  background-color: #fdf3e7;
 }
 </style>

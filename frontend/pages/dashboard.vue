@@ -1,38 +1,35 @@
 <template>
-  <div class="min-h-screen bg-ocean text-black font-ocean">
-    <!-- Hero -->
-    <div class="w-screen max-h-[320px] overflow-hidden border-b border-cyan-500">
-      <img
-        src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80"
-        alt="Underwater"
-        class="w-full h-full object-cover"
-        style="height: 320px;"
-      />
-    </div>
-
+  <div class="min-h-screen bg-mookata text-stone-900">
     <!-- Container -->
     <div class="p-6 max-w-5xl mx-auto">
-      <h1 class="text-4xl font-extrabold mb-8 text-center tracking-wide drop-shadow-lg">
-        แดชบอร์ดการจองโต๊ะ
+      <h1 class="text-4xl font-extrabold mb-8 text-center tracking-wide drop-shadow-sm text-red-800">
+        Table Status
       </h1>
 
       <!-- สรุปสถิติ -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
-        <div class="rounded-lg p-5 bg-gradient-to-br from-cyan-100 to-teal-100 border border-cyan-600 shadow">
-          <p class="text-sm opacity-70">โต๊ะทั้งหมด</p>
-          <p class="text-3xl font-extrabold">{{ stats.totalTables }}</p>
+        <!-- โต๊ะทั้งหมด -->
+        <div class="rounded-2xl p-5 bg-orange-100/80 border border-orange-300 shadow-sm">
+          <p class="text-sm text-stone-600">โต๊ะทั้งหมด</p>
+          <p class="text-3xl font-extrabold text-orange-800">{{ stats.totalTables }}</p>
         </div>
-        <div class="rounded-lg p-5 bg-gradient-to-br from-cyan-100 to-teal-100 border border-cyan-600 shadow">
-          <p class="text-sm opacity-70">โต๊ะใช้งานได้</p>
-          <p class="text-3xl font-extrabold">{{ stats.activeTables }}</p>
+
+        <!-- โต๊ะใช้งานได้ -->
+        <div class="rounded-2xl p-5 bg-green-100/80 border border-green-300 shadow-sm">
+          <p class="text-sm text-stone-600">โต๊ะใช้งานได้</p>
+          <p class="text-3xl font-extrabold text-green-700">{{ stats.activeTables }}</p>
         </div>
-        <div class="rounded-lg p-5 bg-gradient-to-br from-cyan-100 to-teal-100 border border-cyan-600 shadow">
-          <p class="text-sm opacity-70">การจองทั้งหมด</p>
-          <p class="text-3xl font-extrabold">{{ stats.totalReservations }}</p>
+
+        <!-- การจองทั้งหมด -->
+        <div class="rounded-2xl p-5 bg-rose-100/80 border border-rose-300 shadow-sm">
+          <p class="text-sm text-stone-600">การจองทั้งหมด</p>
+          <p class="text-3xl font-extrabold text-rose-700">{{ stats.totalReservations }}</p>
         </div>
-        <div class="rounded-lg p-5 bg-gradient-to-br from-cyan-100 to-teal-100 border border-cyan-600 shadow">
-          <p class="text-sm opacity-70">จองวันนี้</p>
-          <p class="text-3xl font-extrabold">{{ stats.todayReservations }}</p>
+
+        <!-- จองวันนี้ -->
+        <div class="rounded-2xl p-5 bg-amber-100/80 border border-amber-300 shadow-sm">
+          <p class="text-sm text-stone-600">จองวันนี้</p>
+          <p class="text-3xl font-extrabold text-amber-700">{{ stats.todayReservations }}</p>
         </div>
       </div>
 
@@ -41,11 +38,11 @@
         <input
           v-model="searchText"
           placeholder="ค้นหา: ชื่อลูกค้า / เบอร์ / โต๊ะ / สถานะ"
-          class="bg-transparent border border-cyan-300 p-3 rounded-md flex-1 placeholder-cyan-800 focus:outline-cyan-400 focus:ring-2 focus:ring-cyan-600 shadow-inner text-black"
+          class="bg-white/70 border border-amber-300 p-3 rounded-xl flex-1 placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-amber-500 shadow-sm"
         />
         <button
           @click="clearSearch"
-          class="bg-cyan-300 hover:bg-cyan-400 text-black font-semibold px-5 rounded-md shadow transition duration-300"
+          class="bg-amber-500 hover:bg-amber-600 text-white font-semibold px-5 py-2 rounded-xl shadow-sm transition"
         >
           ล้าง
         </button>
@@ -53,39 +50,53 @@
 
       <!-- รายการจองล่าสุด -->
       <div class="flex items-center justify-between mb-3">
-        <h2 class="text-2xl font-bold">การจองล่าสุด</h2>
-        <NuxtLink to="/reservations" class="text-cyan-700 underline">ดูทั้งหมด →</NuxtLink>
+        <h2 class="text-2xl font-bold text-stone-800">การจองล่าสุด</h2>
+        <NuxtLink to="/reservations" class="text-red-700 hover:text-red-800 underline underline-offset-4">ดูทั้งหมด →</NuxtLink>
       </div>
 
-      <div v-if="loading" class="text-center py-10 opacity-70">กำลังโหลด...</div>
+      <div v-if="loading" class="text-center py-10 text-stone-500">กำลังโหลด...</div>
 
       <div v-else class="space-y-4">
         <div
           v-for="r in filteredReservations.slice(0, 10)"
           :key="r.id"
-          class="bg-gradient-to-r from-cyan-100 via-blue-200 to-teal-100 rounded-lg p-5 shadow border border-cyan-600"
+          class="bg-gradient-to-r from-amber-50 via-orange-50 to-rose-50 rounded-2xl p-5 shadow-sm border border-amber-200"
         >
           <div class="flex justify-between items-start">
             <div>
-              <p class="font-bold text-lg">
+              <p class="font-bold text-lg text-stone-900">
                 โต๊ะ {{ r.table?.number ?? '-' }} • {{ r.customerName ?? '-' }}
               </p>
-              <p class="text-sm">เบอร์: {{ r.phone || '-' }} • จำนวนคน: {{ r.partySize || '-' }}</p>
-              <p class="text-sm">
+              <p class="text-sm text-stone-600">เบอร์: {{ r.phone || '-' }} • จำนวนคน: {{ r.partySize || '-' }}</p>
+              <p class="text-sm text-stone-600">
                 เวลา: {{ fmt(r.reserveStart) }} — {{ fmt(r.reserveEnd) }}
               </p>
-              <p class="text-sm">สถานะ: <span class="font-semibold">{{ r.status }}</span></p>
+              <p class="text-sm text-stone-700">
+                สถานะ:
+                <span
+                  class="font-semibold px-2 py-0.5 rounded-full"
+                  :class="{
+                    'bg-green-100 text-green-700': r.status === 'available',
+                    'bg-rose-100 text-rose-700': r.status === 'occupied',
+                    'bg-amber-100 text-amber-700': r.status === 'reserved',
+                    'bg-stone-100 text-stone-700': r.status === 'cleaning',
+                    'bg-stone-200 text-stone-700': !['available','occupied','reserved','cleaning'].includes((r.status||'').toLowerCase())
+                  }"
+                >
+                  {{ r.status }}
+                </span>
+              </p>
             </div>
             <div class="flex gap-2">
               <button
-                class="px-3 py-1 rounded bg-yellow-500 hover:bg-yellow-600 text-white"
+                class="px-3 py-1 rounded-lg bg-yellow-600 hover:bg-yellow-700 text-white disabled:opacity-50"
                 @click="cancelReservation(r.id)"
                 :disabled="r.status === 'cancelled' || r.status === 'completed'"
               >
                 ยกเลิก
               </button>
               <button
-                class="px-3 py-1 rounded bg-red-600 hover:bg-red-700 text-white"
+                class="px-3 py-1 rounded-lg bg-red-700 hover:bg-red-800 text-white"
                 @click="deleteReservation(r.id)"
               >
                 ลบ
@@ -135,7 +146,6 @@ const fetchData = async () => {
     const resvs = rRes.data || []
 
     reservations.value = resvs
-
     stats.value.totalTables = tables.length
     stats.value.activeTables = tables.filter(t => t.isActive).length
     stats.value.totalReservations = resvs.length
@@ -199,13 +209,14 @@ onMounted(fetchData)
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
-
-.font-ocean { font-family: 'Pacifico', cursive; }
-.bg-ocean {
-  background-image: url('https://images.unsplash.com/photo-1581322336686-c5a8f1b1d4be?auto=format&fit=crop&w=1500&q=80');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+/* พื้นหลังครีม/เบจแบบภาพตัวอย่าง */
+.bg-mookata {
+  background-color: #fdf3e7; /* ครีมอุ่น */
+  /* ถ้าอยากให้นวลขึ้นอีก ลอง #fff7ec หรือ #fff4e6 */
 }
+
+/* (ตัวเลือก) ฟอนต์อบอุ่นนิดๆ
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;600;800&display=swap');
+:root { --thai: 'Noto Sans Thai', ui-sans-serif, system-ui; }
+* { font-family: var(--thai); } */
 </style>
