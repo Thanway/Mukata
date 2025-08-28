@@ -19,7 +19,7 @@ def mongo_mock():
     connect(
         db='testdb',
         alias='default',
-        host='mongodb://localhost',  # ต้องใส่อะไรสักอย่างให้ไม่เป็น None
+        host='mongodb://localhost',  # ต้องใส่อะไรสักอย่างให้ไม่เป็น 
         mongo_client_class=lambda *args, **kwargs: mock_client  # ✅ ใช้ lambda คืน client
     )
 
