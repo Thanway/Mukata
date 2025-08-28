@@ -143,3 +143,27 @@ def tables_stats():
         "occupied": occupied,
         "reserved": reserved
     }), 200
+
+
+@tables.route('/tables/public-stats', methods=['GET'])
+def public_stats():
+    tables = Table.objects()
+    total = tables.count()
+    available = tables.filter(is_active=True).count()
+
+    now = datetime.utcnow()
+    resvs = Reservation.objects(status__in=["reserved", "seated"])
+    occupied = 0
+    reserved = 0
+    for r in resvs:
+        if r.status == "seated" or (r.reserve_start and r.reserve_end and r.reserve_start <= now <= r.reserve_end):
+            occupied += 1
+        if r.status == "reserved":
+            reserved += 1
+
+    return jsonify({
+        "total": total,
+        "available": available,
+        "occupied": occupied,
+        "reserved": reserved
+    }), 200
