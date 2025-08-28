@@ -158,7 +158,6 @@ const fetchStats = async () => {
   }
 }
 
+
 onMounted(fetchStats)
 </script>
-
-#chok
