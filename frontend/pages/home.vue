@@ -125,12 +125,18 @@ const stats = ref({
   reserved: 0
 })
 
+// ✅ ดึง token มาใช้
+const authHeaders = () => {
+  const token = localStorage.getItem('token')
+  return { Authorization: `Bearer ${token}` }
+}
+
 const fetchStats = async () => {
   loading.value = true
   try {
     const [tRes, rRes] = await Promise.all([
-      axios.get(`${API}/tables`),
-      axios.get(`${API}/reservations`)
+      axios.get(`${API}/tables`, { headers: authHeaders() }),
+      axios.get(`${API}/reservations`, { headers: authHeaders() })
     ])
 
     const tables = tRes.data || []
@@ -152,9 +158,6 @@ const fetchStats = async () => {
   }
 }
 
+
 onMounted(fetchStats)
 </script>
-
-<style>
-.bg-mookata { background-color: #fdf3e7; }
-</style>
