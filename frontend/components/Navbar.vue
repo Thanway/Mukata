@@ -22,6 +22,7 @@
   <NuxtLink to="/table">Table</NuxtLink> 
   <NuxtLink to="/reservations">reservations</NuxtLink>
    <NuxtLink to="/logout">logout</NuxtLink>
+   <NuxtLink to="/Home">Home</NuxtLink>
     </div>
   </nav>
 </template>
