@@ -28,7 +28,7 @@ jobs:
         context: ./backend
         file: ./backend/Dockerfile
         push: true
-        tags: thanway2277/Mukata-backend:latest
+        tags: thanway2277/mukata-backend:latest
 
     - name: Build & Push Frontend Image
       uses: docker/build-push-action@v5
@@ -36,7 +36,7 @@ jobs:
         context: ./frontend
         file: ./frontend/Dockerfile
         push: true
-        tags: thanway2277/Mukata-frontend:latest
+        tags: thanway2277/mukata-frontend:latest
         build-args: |
           VITE_API_URL=${{ secrets.VITE_API_URL }}
 
@@ -49,8 +49,8 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
           cd ~/Mukata
-          docker pull thanway2277/Mukata-backend:latest
-          docker pull thanway2277/Mukata-frontend:latest
+          docker pull thanway2277/mukata-backend:latest
+          docker pull thanway2277/mukata-frontend:latest
           docker compose down
           docker compose up -d
           
