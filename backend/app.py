@@ -14,7 +14,7 @@ app.config.from_object(Config)
 # CORS: อนุญาต frontend ที่ :3000 และเปิดให้ใช้ METHODS/HEADERS ตามที่ต้องการ
 CORS(
     app,
-    resources={r"/api/*": {"origins": ["http://localhost:3000"]}},
+    resources={r"/api/*": {"origins": "*"}},
     supports_credentials=True,
     methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allow_headers=["Content-Type", "Authorization"],
