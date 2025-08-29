@@ -15,7 +15,7 @@ services:
     build:
       context: ./frontend
       args:
-        VITE_API_URL: ${VITE_API_URL}   # << ดึงจาก .env ภายนอกfffff
+        VITE_API_URL: ${VITE_API_URL}   # << ดึงจาก .env ภายนอกf
     container_name: Mukata-frontend
     env_file:
       - ./frontend/.env                # ใช้ตอน runtime
