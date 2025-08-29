@@ -145,7 +145,7 @@
 import axios from 'axios'
 import { ref, computed, onMounted } from 'vue'
 
-const API = 'http://localhost:5000/api'
+const API = 'https://api-mukata.loeitech.org/api'
 
 const form = ref({ number: '', seats: 4 })
 const tables = ref([])

@@ -115,7 +115,7 @@
 import axios from 'axios'
 import { ref, onMounted } from 'vue'
 
-const API = 'http://localhost:5000/api'
+const API = 'https://api-mukata.loeitech.org/api'
 
 const loading = ref(true)
 const stats = ref({

@@ -117,7 +117,7 @@
 import axios from 'axios'
 import { ref, onMounted, computed } from 'vue'
 
-const API = 'http://localhost:5000/api'
+const API = 'https://api-mukata.loeitech.org/api'
 
 const stats = ref({
   totalTables: 0,
