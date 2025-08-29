@@ -97,7 +97,7 @@ import axios from 'axios'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-const API = 'http://localhost:5000/api' // ปรับตามจริงได้
+const API = 'https://api-mukata.loeitech.org/api' // ปรับตามจริงได้
 
 const username = ref('')
 const password = ref('')
