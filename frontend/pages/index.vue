@@ -1,4 +1,4 @@
 <!-- pages/index.vue -->
 <script setup>
-navigateTo('/home')  // redirect ไปหน้า login
+navigateTo('/login')  // redirect ไปหน้า login
 </script>

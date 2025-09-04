@@ -88,7 +88,7 @@ const handleLogin = async () => {
       password: password.value
     })
     localStorage.setItem('token', res.data.access_token)
-    router.push('/dashboard')
+    router.push('/home')
   } catch (err) {
     errorMsg.value = err?.response?.data?.msg || 'เข้าสู่ระบบไม่สำเร็จ กรุณาลองใหม่'
   } finally {
